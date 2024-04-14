@@ -15,9 +15,18 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         let window = UIWindow(windowScene: windowScene)
-        let vc = HomeViewController()
-        let navVC = UINavigationController(rootViewController: vc)
-        window.rootViewController = navVC
+        
+        if AuthManager.shared.isSignedIn {
+            // signed in UI
+            window.rootViewController = TabBarViewController()
+        }
+        else {
+            // sign in ui
+            let vc = SignInViewController()
+            let navVC = UINavigationController(rootViewController: vc)
+            window.rootViewController = navVC
+        }
+        
         window.makeKeyAndVisible()
         self.window = window
     }
