@@ -15,12 +15,24 @@ class TabBarViewController: UITabBarController {
     }
     /// Sets up tab bar controllers
     private func setUpControllers() {
+        guard
+            let email = UserDefaults.standard.string(forKey: "email"),
+            let username = UserDefaults.standard.string(forKey: "username")
+        else {
+            return
+        }
+
+        let currentUser = User(
+            username: username,
+            email: email
+        )
+        
         // Define VCs
         let home = HomeViewController()
         let explore = ExploreViewController()
         let camera = CameraViewController()
         let activity = NotificationsViewController()
-        let profile = ProfileViewController()
+        let profile = ProfileViewController(user: currentUser)
         
         let nav1 = UINavigationController(rootViewController: home)
         let nav2 = UINavigationController(rootViewController: explore)

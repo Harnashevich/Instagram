@@ -19,6 +19,12 @@ final class AuthManager {
     /// Auth reference
     private let auth = Auth.auth()
     
+    /// Auth errors that can occur
+    enum AuthError: Error {
+        case newUserCreation
+        case signInFailed
+    }
+    
     /// Determine if user is signed in
     public var isSignedIn: Bool {
         return auth.currentUser != nil
@@ -34,6 +40,23 @@ final class AuthManager {
         password: String,
         completion: @escaping (Result<User, Error>) -> Void
     ) {
+        DatabaseManager.shared.findUser(with: email) { [weak self] user in
+            guard let user = user else {
+                completion(.failure(AuthError.signInFailed))
+                return
+            }
+
+            self?.auth.signIn(withEmail: email, password: password) { result, error in
+                guard result != nil, error == nil else {
+                    completion(.failure(AuthError.signInFailed))
+                    return
+                }
+
+                UserDefaults.standard.setValue(user.username, forKey: "username")
+                UserDefaults.standard.setValue(user.email, forKey: "email")
+                completion(.success(user))
+            }
+        }
     }
     
     /// Attempt new user sign up
@@ -50,6 +73,33 @@ final class AuthManager {
         profilePicture: Data?,
         completion: @escaping (Result<User, Error>) -> Void
     ) {
+        let newUser = User(username: username, email: email)
+        // Create account
+        auth.createUser(withEmail: email, password: password) { result, error in
+            guard result != nil, error == nil else {
+                completion(.failure(AuthError.newUserCreation))
+                return
+            }
+
+            DatabaseManager.shared.createUser(newUser: newUser) { success in
+                if success {
+                    StorageManager.shared.uploadProfilePicture(
+                        username: username,
+                        data: profilePicture
+                    ) { uploadSuccess in
+                        if uploadSuccess {
+                            completion(.success(newUser))
+                        }
+                        else {
+                            completion(.failure(AuthError.newUserCreation))
+                        }
+                    }
+                }
+                else {
+                    completion(.failure(AuthError.newUserCreation))
+                }
+            }
+        }
     }
     
     /// Attempt Sign Out
