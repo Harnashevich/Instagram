@@ -11,6 +11,8 @@ class HomeViewController: UIViewController {
     
     private var collectionView: UICollectionView?
     
+    private var viewModels = [[HomeFeedCellType]]()
+    
     let colors: [UIColor] = [
         .red,
         .green,
@@ -24,6 +26,7 @@ class HomeViewController: UIViewController {
         super.viewDidLoad()
         title = "Instagram"
         configureCollectionView()
+        fetchPosts()
     }
     
     override func viewDidLayoutSubviews() {
@@ -31,19 +34,64 @@ class HomeViewController: UIViewController {
         collectionView?.frame = view.bounds
     }
 }
+
+// MARK: - UICollectionViewDelegate
+
+extension HomeViewController: UICollectionViewDelegate {
+    
+    private func fetchPosts() {
+        // mock data
+        let postData: [HomeFeedCellType] = [
+            .poster(
+                viewModel: PosterCollectionViewCellViewModel(
+                    username: "iosAcademy",
+                    profilePictureURL: URL(string: "https://www.apple.com")!
+                )
+            ),
+            .post(
+                viewModel: PostCollectionViewCellViewModel(
+                    postUrl: URL(string: "https://www.apple.com")!
+                )
+            ),
+            .actions(viewModel: PostActionsCollectionViewCellViewModel(isLiked: true)),
+            .likeCount(viewModel: PostLikesCollectionViewCellViewModel(likers: ["kanyewest"])),
+            .caption(viewModel: PostCaptionCollectionViewCellViewModel(username: "iosacademu", caption: "first post")),
+            .timestamp(viewModel: PostDatetimeCollectionViewCellViewModel(date: Date()))
+        ]
+        viewModels.append(postData)
+        collectionView?.reloadData()
+    }
+}
+
 // MARK: - UICollectionViewDataSource
 
 extension HomeViewController: UICollectionViewDataSource {
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        3
+        viewModels.count
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        6
+        viewModels[section].count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cellType = viewModels[indexPath.section][indexPath.row]
+        switch cellType {
+            
+        case .poster(let viewModel):
+            break
+        case .post(let viewModel):
+            break
+        case .actions(let viewModel):
+            break
+        case .likeCount(let viewModel):
+            break
+        case .caption(let viewModel):
+            break
+        case .timestamp(let viewModel):
+            break
+        }
         let cell = collectionView.dequeueReusableCell(
             withReuseIdentifier: "cell",
             for: indexPath
@@ -53,12 +101,6 @@ extension HomeViewController: UICollectionViewDataSource {
         return cell
     }
     
-    
-}
-
-// MARK: - UICollectionViewDelegate
-
-extension HomeViewController: UICollectionViewDelegate {
     
 }
 
