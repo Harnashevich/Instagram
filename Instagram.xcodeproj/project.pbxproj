@@ -14,6 +14,8 @@
 		9F0C90992C0A10E000E5D3A3 /* PostLikesCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F0C90982C0A10E000E5D3A3 /* PostLikesCollectionViewCell.swift */; };
 		9F0C909B2C0A10FA00E5D3A3 /* PostCaptionCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F0C909A2C0A10FA00E5D3A3 /* PostCaptionCollectionViewCell.swift */; };
 		9F0C909D2C0A110F00E5D3A3 /* PostDateTimeCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F0C909C2C0A110F00E5D3A3 /* PostDateTimeCollectionViewCell.swift */; };
+		9F45E7262C2055C6001DF4EB /* PostEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F45E7252C2055C6001DF4EB /* PostEditViewController.swift */; };
+		9F45E7282C205F35001DF4EB /* PhotoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F45E7272C205F35001DF4EB /* PhotoCollectionViewCell.swift */; };
 		9F4F598B2BC9597600C152FE /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9F4F598A2BC9597600C152FE /* GoogleService-Info.plist */; };
 		9F61A1C22BFE40BA006D0F08 /* PosterCollectionViewCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F61A1C12BFE40BA006D0F08 /* PosterCollectionViewCellViewModel.swift */; };
 		9F61A1C42BFE41CA006D0F08 /* PostCollectionViewCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F61A1C32BFE41CA006D0F08 /* PostCollectionViewCellViewModel.swift */; };
@@ -61,6 +63,8 @@
 		9F0C90982C0A10E000E5D3A3 /* PostLikesCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostLikesCollectionViewCell.swift; sourceTree = "<group>"; };
 		9F0C909A2C0A10FA00E5D3A3 /* PostCaptionCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCaptionCollectionViewCell.swift; sourceTree = "<group>"; };
 		9F0C909C2C0A110F00E5D3A3 /* PostDateTimeCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostDateTimeCollectionViewCell.swift; sourceTree = "<group>"; };
+		9F45E7252C2055C6001DF4EB /* PostEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostEditViewController.swift; sourceTree = "<group>"; };
+		9F45E7272C205F35001DF4EB /* PhotoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCollectionViewCell.swift; sourceTree = "<group>"; };
 		9F4F598A2BC9597600C152FE /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		9F61A1C12BFE40BA006D0F08 /* PosterCollectionViewCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PosterCollectionViewCellViewModel.swift; sourceTree = "<group>"; };
 		9F61A1C32BFE41CA006D0F08 /* PostCollectionViewCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCollectionViewCellViewModel.swift; sourceTree = "<group>"; };
@@ -217,6 +221,7 @@
 				9FDFC9EA2BBC57F0000E8FA1 /* LaunchScreen.storyboard */,
 				9FFAF6A62BCD1B3D00768243 /* SignInHeaderView.swift */,
 				9FFAF6A82BCD1E3C00768243 /* IGTextField.swift */,
+				9F45E7272C205F35001DF4EB /* PhotoCollectionViewCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -267,6 +272,7 @@
 				9FDFCA0B2BBC5A2F000E8FA1 /* ListViewController.swift */,
 				9FDFCA0D2BBC5A3B000E8FA1 /* CaptionViewController.swift */,
 				9FFAF6AC2BCD463200768243 /* SettingsViewController.swift */,
+				9F45E7252C2055C6001DF4EB /* PostEditViewController.swift */,
 			);
 			path = Other;
 			sourceTree = "<group>";
@@ -412,6 +418,7 @@
 				9F61A1C82BFE4214006D0F08 /* PostLikesCollectionViewCellViewModel.swift in Sources */,
 				9FDFCA122BBC5AE4000E8FA1 /* Post.swift in Sources */,
 				9FDFCA062BBC5A0B000E8FA1 /* SignInViewController.swift in Sources */,
+				9F45E7262C2055C6001DF4EB /* PostEditViewController.swift in Sources */,
 				9FDFCA022BBC59DC000E8FA1 /* ProfileViewController.swift in Sources */,
 				9F61A1CA2BFE4273006D0F08 /* PostCaptionCollectionViewCellViewModel.swift in Sources */,
 				9FDFC9E02BBC57EE000E8FA1 /* AppDelegate.swift in Sources */,
@@ -420,6 +427,7 @@
 				9F61A1C62BFE41F5006D0F08 /* PostActionsCollectionViewCellViewModel.swift in Sources */,
 				9F0C909D2C0A110F00E5D3A3 /* PostDateTimeCollectionViewCell.swift in Sources */,
 				9FDFC9E22BBC57EE000E8FA1 /* SceneDelegate.swift in Sources */,
+				9F45E7282C205F35001DF4EB /* PhotoCollectionViewCell.swift in Sources */,
 				9FFAF6AD2BCD463200768243 /* SettingsViewController.swift in Sources */,
 				9F0C90922C0A0ECD00E5D3A3 /* PosterCollectionViewCell.swift in Sources */,
 				9FDFCA0A2BBC5A21000E8FA1 /* PostViewController.swift in Sources */,
