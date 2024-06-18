@@ -19,6 +19,30 @@ final class DatabaseManager {
     /// Database referenec
     private let database = Firestore.firestore()
     
+    /// Find posts from a given user
+    /// - Parameters:
+    ///   - username: Username to query
+    ///   - completion: Result callback
+    public func posts(
+        for username: String,
+        completion: @escaping (Result<[Post], Error>) -> Void
+    ) {
+        let ref = database.collection("users")
+            .document(username)
+            .collection("posts")
+        ref.getDocuments { snapshot, error in
+            guard let posts = snapshot?.documents.compactMap({
+                Post(with: $0.data())
+            }).sorted(by: {
+                return $0.date > $1.date
+            }),
+                  error == nil else {
+                return
+            }
+            completion(.success(posts))
+        }
+    }
+    
     /// Find single user with email
     /// - Parameters:
     ///   - email: Source email
@@ -37,6 +61,26 @@ final class DatabaseManager {
 
             let user = users.first(where: { $0.email == email })
             completion(user)
+        }
+    }
+    
+    /// Create new post
+    /// - Parameters:
+    ///   - newPost: New Post model
+    ///   - completion: Result callback
+    public func createPost(newPost: Post, completion: @escaping (Bool) -> Void) {
+        guard let username = UserDefaults.standard.string(forKey: "username") else {
+            completion(false)
+            return
+        }
+
+        let reference = database.document("users/\(username)/posts/\(newPost.id)")
+        guard let data = newPost.asDictionary() else {
+            completion(false)
+            return
+        }
+        reference.setData(data) { error in
+            completion(error == nil)
         }
     }
     

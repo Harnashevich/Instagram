@@ -11,7 +11,7 @@ final class CaptionViewController: UIViewController {
     
     // MARK: - UI
     
-    private let imageVIew: UIImageView = {
+    private let imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.clipsToBounds = true
         imageView.contentMode = .scaleAspectFit
@@ -47,8 +47,8 @@ final class CaptionViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
-        view.addSubview(imageVIew)
-        imageVIew.image = image
+        view.addSubview(imageView)
+        imageView.image = image
         view.addSubview(textView)
         textView.delegate = self
         navigationItem.rightBarButtonItem = UIBarButtonItem(
@@ -61,7 +61,7 @@ final class CaptionViewController: UIViewController {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         let size: CGFloat = view.width/4
-        imageVIew.frame = CGRect(
+        imageView.frame = CGRect(
             x: (view.width-size)/2,
             y: view.safeAreaInsets.top + 10,
             width: size,
@@ -69,7 +69,7 @@ final class CaptionViewController: UIViewController {
         )
         textView.frame = CGRect(
             x: 20,
-            y: imageVIew.bottom+20,
+            y: imageView.bottom+20,
             width: view.width-40,
             height: 100
         )
@@ -80,12 +80,64 @@ final class CaptionViewController: UIViewController {
 
 extension CaptionViewController {
     
+    private func createNewPostID() -> String? {
+        let timeStamp = Date().timeIntervalSince1970
+        let randomNumber = Int.random(in: 0...1000)
+        guard let username = UserDefaults.standard.string(forKey: "username") else {
+            return nil
+        }
+
+        return "\(username)_\(randomNumber)_\(timeStamp)"
+    }
+    
     @objc
     private func didTapPost() {
         textView.resignFirstResponder()
         var caption = textView.text ?? ""
         if caption == "Add caption..." {
             caption = ""
+        }
+        
+        // Generate post ID
+        guard
+            let newPostID = createNewPostID(),
+            let stringDate = String.date(from: Date()) else {
+            return
+        }
+        
+        // Upload Post
+        StorageManager.shared.uploadPost(
+            data: image.pngData(),
+            id: newPostID
+        ) { newPostDownloadURL in
+            guard let url = newPostDownloadURL else {
+                print("error: failed to upload")
+                return
+            }
+            
+            // New Post
+            let newPost = Post(
+                id: newPostID,
+                caption: caption,
+                postedDate: stringDate,
+                postUrlString: url.absoluteString,
+                likers: []
+            )
+
+            // Update Database
+            DatabaseManager.shared.createPost(newPost: newPost) { [weak self] finished in
+                guard finished else {
+                    return
+                }
+                DispatchQueue.main.async {
+                    self?.tabBarController?.tabBar.isHidden = false
+                    self?.tabBarController?.selectedIndex = 0
+                    self?.navigationController?.popToRootViewController(animated: false)
+
+                    NotificationCenter.default.post(name: .didPostNotification,
+                                                    object: nil)
+                }
+            }
         }
     }
 }
