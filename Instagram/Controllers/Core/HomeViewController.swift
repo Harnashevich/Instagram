@@ -9,7 +9,11 @@ import UIKit
 
 final class HomeViewController: UIViewController {
     
+    // MARK: - UI
+    
     private var collectionView: UICollectionView?
+    
+    // MARK: - Variables
     
     private var viewModels = [[HomeFeedCellType]]()
     
@@ -21,6 +25,8 @@ final class HomeViewController: UIViewController {
         .systemPink,
         .orange
     ]
+    
+    // MARK: - Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -248,9 +254,9 @@ extension HomeViewController: PostActionsCollectionViewCellDelegate {
     }
     
     func postActionsCollectionViewCellDidTapComment(_ cell: PostActionsCollectionViewCell, index: Int) {
-        let vc = PostViewController()
-        vc.title = "Post"
-        navigationController?.pushViewController(vc, animated: true)
+//        let vc = PostViewController()
+//        vc.title = "Post"
+//        navigationController?.pushViewController(vc, animated: true)
     }
     
     func postActionsCollectionViewCellDidTapShare(_ cell: PostActionsCollectionViewCell, index: Int) {

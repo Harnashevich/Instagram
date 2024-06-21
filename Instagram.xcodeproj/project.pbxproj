@@ -17,6 +17,7 @@
 		9F45E7262C2055C6001DF4EB /* PostEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F45E7252C2055C6001DF4EB /* PostEditViewController.swift */; };
 		9F45E7282C205F35001DF4EB /* PhotoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F45E7272C205F35001DF4EB /* PhotoCollectionViewCell.swift */; };
 		9F4F598B2BC9597600C152FE /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9F4F598A2BC9597600C152FE /* GoogleService-Info.plist */; };
+		9F5B9D722C25831100B51749 /* SearchResultsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F5B9D712C25831100B51749 /* SearchResultsViewController.swift */; };
 		9F61A1C22BFE40BA006D0F08 /* PosterCollectionViewCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F61A1C12BFE40BA006D0F08 /* PosterCollectionViewCellViewModel.swift */; };
 		9F61A1C42BFE41CA006D0F08 /* PostCollectionViewCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F61A1C32BFE41CA006D0F08 /* PostCollectionViewCellViewModel.swift */; };
 		9F61A1C62BFE41F5006D0F08 /* PostActionsCollectionViewCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F61A1C52BFE41F5006D0F08 /* PostActionsCollectionViewCellViewModel.swift */; };
@@ -66,6 +67,7 @@
 		9F45E7252C2055C6001DF4EB /* PostEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostEditViewController.swift; sourceTree = "<group>"; };
 		9F45E7272C205F35001DF4EB /* PhotoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCollectionViewCell.swift; sourceTree = "<group>"; };
 		9F4F598A2BC9597600C152FE /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		9F5B9D712C25831100B51749 /* SearchResultsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultsViewController.swift; sourceTree = "<group>"; };
 		9F61A1C12BFE40BA006D0F08 /* PosterCollectionViewCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PosterCollectionViewCellViewModel.swift; sourceTree = "<group>"; };
 		9F61A1C32BFE41CA006D0F08 /* PostCollectionViewCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCollectionViewCellViewModel.swift; sourceTree = "<group>"; };
 		9F61A1C52BFE41F5006D0F08 /* PostActionsCollectionViewCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostActionsCollectionViewCellViewModel.swift; sourceTree = "<group>"; };
@@ -273,6 +275,7 @@
 				9FDFCA0D2BBC5A3B000E8FA1 /* CaptionViewController.swift */,
 				9FFAF6AC2BCD463200768243 /* SettingsViewController.swift */,
 				9F45E7252C2055C6001DF4EB /* PostEditViewController.swift */,
+				9F5B9D712C25831100B51749 /* SearchResultsViewController.swift */,
 			);
 			path = Other;
 			sourceTree = "<group>";
@@ -411,6 +414,7 @@
 				9FDFCA102BBC5AD7000E8FA1 /* User.swift in Sources */,
 				9F61A1CC2BFE42B0006D0F08 /* PostDatetimeCollectionViewCellViewModel.swift in Sources */,
 				9FDFCA082BBC5A15000E8FA1 /* SignUpViewController.swift in Sources */,
+				9F5B9D722C25831100B51749 /* SearchResultsViewController.swift in Sources */,
 				9FFAF6A72BCD1B3D00768243 /* SignInHeaderView.swift in Sources */,
 				9FDFCA002BBC59CE000E8FA1 /* NotificationsViewController.swift in Sources */,
 				9F61A1C42BFE41CA006D0F08 /* PostCollectionViewCellViewModel.swift in Sources */,
@@ -585,7 +589,7 @@
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
-				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -619,7 +623,7 @@
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
-				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

@@ -19,6 +19,29 @@ final class DatabaseManager {
     /// Database referenec
     private let database = Firestore.firestore()
     
+    /// Find users with prefix
+    /// - Parameters:
+    ///   - usernamePrefix: Query prefix
+    ///   - completion: Result callback
+    public func findUsers(
+        with usernamePrefix: String,
+        completion: @escaping ([User]) -> Void
+    ) {
+        let ref = database.collection("users")
+        ref.getDocuments { snapshot, error in
+            guard let users = snapshot?.documents.compactMap({ User(with: $0.data()) }),
+                  error == nil else {
+                completion([])
+                return
+            }
+            let subset = users.filter({
+                $0.username.lowercased().hasPrefix(usernamePrefix.lowercased())
+            })
+
+            completion(subset)
+        }
+    }
+    
     /// Find posts from a given user
     /// - Parameters:
     ///   - username: Username to query
@@ -99,6 +122,49 @@ final class DatabaseManager {
         }
         reference.setData(data) { error in
             completion(error == nil)
+        }
+    }
+    
+    /// Gets posts for explore page
+    /// - Parameter completion: Result callback
+    public func explorePosts(completion: @escaping ([(post: Post, user: User)]) -> Void) {
+        let ref = database.collection("users")
+        ref.getDocuments { snapshot, error in
+            guard let users = snapshot?.documents.compactMap({ User(with: $0.data()) }),
+                  error == nil else {
+                completion([])
+                return
+            }
+
+            let group = DispatchGroup()
+            var aggregatePosts = [(post: Post, user: User)]()
+
+            users.forEach { user in
+                group.enter()
+
+                let username = user.username
+                let postsRef = self.database.collection("users/\(username)/posts")
+
+                postsRef.getDocuments { snapshot, error in
+
+                    defer {
+                        group.leave()
+                    }
+
+                    guard let posts = snapshot?.documents.compactMap({ Post(with: $0.data()) }),
+                          error == nil else {
+                        return
+                    }
+
+                    aggregatePosts.append(contentsOf: posts.compactMap({
+                        (post: $0, user: user)
+                    }))
+                }
+            }
+
+            group.notify(queue: .main) {
+                completion(aggregatePosts)
+            }
         }
     }
 }
