@@ -33,7 +33,8 @@ final class PostViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        title = "Post"
+        view.backgroundColor = .systemBackground
     }
 }
 

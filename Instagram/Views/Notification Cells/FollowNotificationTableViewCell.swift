@@ -131,7 +131,6 @@ final class FollowNotificationTableViewCell: UITableViewCell {
 
     public func configure(with viewModel: FollowNotificationCellViewModel) {
         self.viewModel = viewModel
-        print(viewModel)
         label.text = viewModel.username + " started following you."
         profilePictureImageView.sd_setImage(with: viewModel.profilePictureUrl, completed: nil)
         isFollowing = viewModel.isCurrentUserFollowing

@@ -273,9 +273,9 @@ extension HomeViewController: PostActionsCollectionViewCellDelegate {
 extension HomeViewController: PostLikesCollectionViewCellDelegate {
     
     func postLikesCollectionViewCellDidTapLikeCount(_ cell: PostLikesCollectionViewCell, index: Int) {
-        let vc = ListViewController()
-        vc.title = "Liked By"
-        navigationController?.pushViewController(vc, animated: true)
+//        HapticManager.shared.vibrateForSelection()
+//        let vc = ListViewController(type: .likers(usernames: allPosts[index].post.likers))
+//        navigationController?.pushViewController(vc, animated: true)
     }
 }
 
