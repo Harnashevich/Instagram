@@ -11,11 +11,19 @@ final class HomeViewController: UIViewController {
     
     // MARK: - UI
     
+    /// CollectionView for feed
     private var collectionView: UICollectionView?
     
     // MARK: - Variables
-    
+
+    /// Feed viewModels
     private var viewModels = [[HomeFeedCellType]]()
+
+    /// Notification observer
+    private var observer: NSObjectProtocol?
+
+    /// All post models
+    private var allPosts: [(post: Post, owner: String)] = []
     
     let colors: [UIColor] = [
         .red,
@@ -33,6 +41,15 @@ final class HomeViewController: UIViewController {
         title = "Instagram"
         configureCollectionView()
         fetchPosts()
+        
+        observer = NotificationCenter.default.addObserver(
+            forName: .didPostNotification,
+            object: nil,
+            queue: .main
+        ) { [weak self] _ in
+            self?.viewModels.removeAll()
+            self?.fetchPosts()
+        }
     }
     
     override func viewDidLayoutSubviews() {
@@ -57,39 +74,98 @@ extension HomeViewController: UICollectionViewDelegate {
         guard let username = UserDefaults.standard.string(forKey: "username") else {
             return
         }
-       
-        DatabaseManager.shared.posts(for: username) { [weak self] result in
-            guard let self else { return }
-            DispatchQueue.main.async {
-                switch result {
-                case .success(let posts):
-                    print("\n\n\n Posts: \(posts)")
-                    
-                    let group = DispatchGroup()
-                    
-                    posts.forEach { model in
-                        group.enter()
-                        self.createViewModel(
-                            model: model,
-                            userName: username
-                        ) { success in
-                            defer {
-                                group.leave()
-                            }
-                            if !success {
-                               print("failed to create VM")
-                            }
+        let userGroup = DispatchGroup()
+        userGroup.enter()
+
+        var allPosts: [(post: Post, owner: String)] = []
+
+        DatabaseManager.shared.following(for: username) { usernames in
+            defer {
+                userGroup.leave()
+            }
+            let users = usernames + [username]
+            
+            for current in users {
+                userGroup.enter()
+                DatabaseManager.shared.posts(for: current) { result in
+                    DispatchQueue.main.async {
+                        defer {
+                            userGroup.leave()
                         }
-                        
-                        group.notify(queue: .main) {
-                            self.collectionView?.reloadData()
+
+                        switch result {
+                        case .success(let posts):
+                            allPosts.append(contentsOf: posts.compactMap({
+                                (post: $0, owner: current)
+                            }))
+                        case .failure:
+                            break
                         }
                     }
-                case .failure(let error):
-                    print(error)
                 }
             }
         }
+
+        userGroup.notify(queue: .main) {
+            let group = DispatchGroup()
+            self.allPosts = allPosts
+            allPosts.forEach { model in
+                group.enter()
+                self.createViewModel(
+                    model: model.post,
+                    userName: model.owner,
+                    completion: { success in
+                        defer {
+                            group.leave()
+                        }
+                        if !success {
+                            print("failed to create VM")
+                        }
+                    }
+                )
+            }
+
+            group.notify(queue: .main) {
+                self.sortData()
+                self.collectionView?.reloadData()
+            }
+        }
+    }
+    
+    private func sortData() {
+        allPosts = allPosts.sorted(by: { first, second in
+            let date1 = first.post.date
+            let date2 = second.post.date
+            return date1 > date2
+        })
+
+        viewModels = viewModels.sorted(by: { first, second in
+            var date1: Date?
+            var date2: Date?
+            first.forEach { type in
+                switch type {
+                case .timestamp(let vm):
+                    date1 = vm.date
+                default:
+                    break
+                }
+            }
+            second.forEach { type in
+                switch type {
+                case .timestamp(let vm):
+                    date2 = vm.date
+                default:
+                    break
+                }
+            }
+
+            if let date1 = date1, let date2 = date2 {
+                return date1 > date2
+            }
+
+            return false
+        })
+
     }
     
     private func createViewModel(
@@ -97,40 +173,39 @@ extension HomeViewController: UICollectionViewDelegate {
         userName: String,
         completion: @escaping (Bool) -> Void
     ) {
-            StorageManager.shared.profilePictureURL(for: userName) { [weak self] profilePictureURL in
-                guard let postURL = URL(string: model.postUrlString),
-                      let profilePictureURL else {
-                    return
-                }
-                
-                let postData: [HomeFeedCellType] = [
-                    .poster(
-                        viewModel: PosterCollectionViewCellViewModel(
-                            username: userName,
-                            profilePictureURL: profilePictureURL
-                        )
-                    ),
-                    .post(
-                        viewModel: PostCollectionViewCellViewModel(
-                            postUrl: postURL
-                        )
-                    ),
-                    .actions(viewModel: PostActionsCollectionViewCellViewModel(isLiked: false)),
-                    .likeCount(viewModel: PostLikesCollectionViewCellViewModel(likers: [])),
-                    .caption(viewModel: PostCaptionCollectionViewCellViewModel(
-                        username: userName,
-                        caption: model.caption
-                    )),
-                    .timestamp(
-                        viewModel: PostDatetimeCollectionViewCellViewModel(
-                            date: DateFormatter.formatter.date(from: model.postedDate) ?? Date()
-                        )
-                    )
-                ]
-                self?.viewModels.append(postData)
-                completion(true)
+        StorageManager.shared.profilePictureURL(for: userName) { [weak self] profilePictureURL in
+            guard let postURL = URL(string: model.postUrlString),
+                  let profilePictureURL else {
+                return
             }
-
+            
+            let postData: [HomeFeedCellType] = [
+                .poster(
+                    viewModel: PosterCollectionViewCellViewModel(
+                        username: userName,
+                        profilePictureURL: profilePictureURL
+                    )
+                ),
+                .post(
+                    viewModel: PostCollectionViewCellViewModel(
+                        postUrl: postURL
+                    )
+                ),
+                .actions(viewModel: PostActionsCollectionViewCellViewModel(isLiked: false)),
+                .likeCount(viewModel: PostLikesCollectionViewCellViewModel(likers: [])),
+                .caption(viewModel: PostCaptionCollectionViewCellViewModel(
+                    username: userName,
+                    caption: model.caption
+                )),
+                .timestamp(
+                    viewModel: PostDatetimeCollectionViewCellViewModel(
+                        date: DateFormatter.formatter.date(from: model.postedDate) ?? Date()
+                    )
+                )
+            ]
+            self?.viewModels.append(postData)
+            completion(true)
+        }
     }
 }
 
@@ -225,7 +300,22 @@ extension HomeViewController: PosterCollectionViewCellDelegate {
             preferredStyle: .actionSheet
         )
         sheet.addAction(UIAlertAction(title: "Cancel", style: .cancel))
-        sheet.addAction(UIAlertAction(title: "Share Post", style: .default))
+        sheet.addAction(UIAlertAction(title: "Share Post", style: .default, handler: { [weak self]  _ in
+            DispatchQueue.main.async {
+//                let cellType = self?.viewModels[index]
+//                switch cellType {
+//                case .post(let viewModel):
+//                    let vc = UIActivityViewController(
+//                        activityItems: ["Check out this cool post!", viewModel.postUrl],
+//                        applicationActivities: []
+//                    )
+//                    self?.present(vc, animated: true)
+//
+//                default:
+//                    break
+//                }
+            }
+        }))
         sheet.addAction(UIAlertAction(title: "Report Post", style: .destructive))
         present(sheet, animated: true)
     }
@@ -260,11 +350,19 @@ extension HomeViewController: PostActionsCollectionViewCellDelegate {
     }
     
     func postActionsCollectionViewCellDidTapShare(_ cell: PostActionsCollectionViewCell, index: Int) {
-        let vc = UIActivityViewController(
-            activityItems: ["Sharing from Instagram"],
-            applicationActivities: []
-        )
-        present(vc, animated: true)
+        let section = viewModels[index]
+        section.forEach { cellType in
+            switch cellType {
+            case .post(let viewModel):
+                let vc = UIActivityViewController(
+                    activityItems: ["Check out this cool post!", viewModel.postUrl],
+                    applicationActivities: []
+                )
+                present(vc, animated: true)
+            default:
+                break
+            }
+        }
     }
 }
 

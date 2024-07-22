@@ -47,6 +47,17 @@ final class ProfileViewController: UIViewController {
         configureNavBar()
         configureCollectionView()
         fetchProfileInfo()
+        
+        if isCurrentUser {
+            observer = NotificationCenter.default.addObserver(
+                forName: .didPostNotification,
+                object: nil,
+                queue: .main
+            ) { [weak self] _ in
+                self?.posts.removeAll()
+                self?.fetchProfileInfo()
+            }
+        }
     }
     
     override func viewDidLayoutSubviews() {
