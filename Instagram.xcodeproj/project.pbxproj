@@ -37,6 +37,7 @@
 		9F61A1CA2BFE4273006D0F08 /* PostCaptionCollectionViewCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F61A1C92BFE4273006D0F08 /* PostCaptionCollectionViewCellViewModel.swift */; };
 		9F61A1CC2BFE42B0006D0F08 /* PostDatetimeCollectionViewCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F61A1CB2BFE42B0006D0F08 /* PostDatetimeCollectionViewCellViewModel.swift */; };
 		9F61A1CE2BFE4387006D0F08 /* HomeFeedCellType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F61A1CD2BFE4387006D0F08 /* HomeFeedCellType.swift */; };
+		9F7206972C4F8C240036F8CB /* SettingsModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F7206962C4F8C240036F8CB /* SettingsModels.swift */; };
 		9F7C51C92C3BE92A006D9B18 /* ProfileHeaderCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F7C51C82C3BE92A006D9B18 /* ProfileHeaderCollectionReusableView.swift */; };
 		9F7C51CB2C3BE9E3006D9B18 /* ProfileHeaderViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F7C51CA2C3BE9E3006D9B18 /* ProfileHeaderViewModel.swift */; };
 		9FDFC9E02BBC57EE000E8FA1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FDFC9DF2BBC57EE000E8FA1 /* AppDelegate.swift */; };
@@ -102,6 +103,7 @@
 		9F61A1C92BFE4273006D0F08 /* PostCaptionCollectionViewCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCaptionCollectionViewCellViewModel.swift; sourceTree = "<group>"; };
 		9F61A1CB2BFE42B0006D0F08 /* PostDatetimeCollectionViewCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostDatetimeCollectionViewCellViewModel.swift; sourceTree = "<group>"; };
 		9F61A1CD2BFE4387006D0F08 /* HomeFeedCellType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeFeedCellType.swift; sourceTree = "<group>"; };
+		9F7206962C4F8C240036F8CB /* SettingsModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsModels.swift; sourceTree = "<group>"; };
 		9F7C51C82C3BE92A006D9B18 /* ProfileHeaderCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHeaderCollectionReusableView.swift; sourceTree = "<group>"; };
 		9F7C51CA2C3BE9E3006D9B18 /* ProfileHeaderViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHeaderViewModel.swift; sourceTree = "<group>"; };
 		9FDFC9DC2BBC57EE000E8FA1 /* Instagram.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Instagram.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -300,6 +302,7 @@
 				9F5C14CF2C32C1F700A49DF4 /* NotificationCellType.swift */,
 				9F60D0072C3FDD080011CC0D /* UserInfo.swift */,
 				9F5C6B172C4EAAB8006E7097 /* SinglePostCellType.swift */,
+				9F7206962C4F8C240036F8CB /* SettingsModels.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -450,6 +453,7 @@
 			files = (
 				9FDFCA042BBC59F2000E8FA1 /* TabBarViewController.swift in Sources */,
 				9F0C90992C0A10E000E5D3A3 /* PostLikesCollectionViewCell.swift in Sources */,
+				9F7206972C4F8C240036F8CB /* SettingsModels.swift in Sources */,
 				9FFAF6AB2BCD359E00768243 /* HapticManager.swift in Sources */,
 				9F6116142C3D1EBA00D181E7 /* ProfileHeaderCountView.swift in Sources */,
 				9F7C51C92C3BE92A006D9B18 /* ProfileHeaderCollectionReusableView.swift in Sources */,
