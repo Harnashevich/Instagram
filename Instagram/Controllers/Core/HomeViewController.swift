@@ -344,9 +344,11 @@ extension HomeViewController: PostActionsCollectionViewCellDelegate {
     }
     
     func postActionsCollectionViewCellDidTapComment(_ cell: PostActionsCollectionViewCell, index: Int) {
-//        let vc = PostViewController()
-//        vc.title = "Post"
-//        navigationController?.pushViewController(vc, animated: true)
+        let tuple = allPosts[index]
+        HapticManager.shared.vibrateForSelection()
+        let vc = PostViewController(post: tuple.post, owner: tuple.owner)
+        vc.title = "Post"
+        navigationController?.pushViewController(vc, animated: true)
     }
     
     func postActionsCollectionViewCellDidTapShare(_ cell: PostActionsCollectionViewCell, index: Int) {
