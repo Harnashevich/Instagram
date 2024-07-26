@@ -1,6 +1,6 @@
 # Instagram <img src="https://github.com/user-attachments/assets/6ffa2b76-a2c1-4b63-82af-8e64d4b61883" width="30" height="30"> 
 
-Instagram application on iOS with the ability to upload, view, and comment on photos.<br />
+Instagram application on iOS with the ability to upload, view, and comment photos.<br />
 The project is based on the iOS Academy course.
 
 ## Features
