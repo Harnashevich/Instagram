@@ -21,3 +21,5 @@ The project is based on the iOS Academy course.
 • UICollectionViewCompositionalLayout<br />
 • AVFoundation<br />
 • URLSession<br />
+
+![imgonline-com-ua-Collage-kaDngOjcGL6jet](https://github.com/user-attachments/assets/46ccac8a-0d02-43e2-b428-dfc4adfaf958)
