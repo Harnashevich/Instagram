@@ -1,4 +1,5 @@
-# Instagram 
+# Instagram ![logo](https://github.com/user-attachments/assets/6ffa2b76-a2c1-4b63-82af-8e64d4b61883)
+
 
 Instagram application on iOS with the ability to upload, view, and comment on photos..<br />
 The project is based on the iOS Academy course.
