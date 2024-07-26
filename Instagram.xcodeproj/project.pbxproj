@@ -19,6 +19,9 @@
 		9F4E3FCA2C524DDA002DF8F7 /* CommentBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F4E3FC92C524DDA002DF8F7 /* CommentBarView.swift */; };
 		9F4E3FCC2C524E46002DF8F7 /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F4E3FCB2C524E46002DF8F7 /* Comment.swift */; };
 		9F4E3FCE2C524EAA002DF8F7 /* CommentCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F4E3FCD2C524EAA002DF8F7 /* CommentCollectionViewCell.swift */; };
+		9F4E3FD52C53ABDE002DF8F7 /* StoryHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F4E3FD42C53ABDE002DF8F7 /* StoryHeaderView.swift */; };
+		9F4E3FD72C53ABFD002DF8F7 /* StoriesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F4E3FD62C53ABFD002DF8F7 /* StoriesViewModel.swift */; };
+		9F4E3FD92C53AC19002DF8F7 /* StoryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F4E3FD82C53AC19002DF8F7 /* StoryCollectionViewCell.swift */; };
 		9F4F598B2BC9597600C152FE /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9F4F598A2BC9597600C152FE /* GoogleService-Info.plist */; };
 		9F5B9D722C25831100B51749 /* SearchResultsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F5B9D712C25831100B51749 /* SearchResultsViewController.swift */; };
 		9F5C14C82C32B8F500A49DF4 /* FollowNotificationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F5C14C72C32B8F500A49DF4 /* FollowNotificationTableViewCell.swift */; };
@@ -88,6 +91,9 @@
 		9F4E3FC92C524DDA002DF8F7 /* CommentBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentBarView.swift; sourceTree = "<group>"; };
 		9F4E3FCB2C524E46002DF8F7 /* Comment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
 		9F4E3FCD2C524EAA002DF8F7 /* CommentCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentCollectionViewCell.swift; sourceTree = "<group>"; };
+		9F4E3FD42C53ABDE002DF8F7 /* StoryHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryHeaderView.swift; sourceTree = "<group>"; };
+		9F4E3FD62C53ABFD002DF8F7 /* StoriesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoriesViewModel.swift; sourceTree = "<group>"; };
+		9F4E3FD82C53AC19002DF8F7 /* StoryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryCollectionViewCell.swift; sourceTree = "<group>"; };
 		9F4F598A2BC9597600C152FE /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		9F5B9D712C25831100B51749 /* SearchResultsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultsViewController.swift; sourceTree = "<group>"; };
 		9F5C14C72C32B8F500A49DF4 /* FollowNotificationTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowNotificationTableViewCell.swift; sourceTree = "<group>"; };
@@ -279,6 +285,8 @@
 				9FED15812C41669200DBEFEC /* ListUserTableViewCell.swift */,
 				9F4E3FC92C524DDA002DF8F7 /* CommentBarView.swift */,
 				9F4E3FCD2C524EAA002DF8F7 /* CommentCollectionViewCell.swift */,
+				9F4E3FD42C53ABDE002DF8F7 /* StoryHeaderView.swift */,
+				9F4E3FD82C53AC19002DF8F7 /* StoryCollectionViewCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -296,6 +304,7 @@
 				9F7C51CA2C3BE9E3006D9B18 /* ProfileHeaderViewModel.swift */,
 				9F6116152C3D1EE100D181E7 /* ProfileHeaderCountViewViewModel.swift */,
 				9FED15832C4166B100DBEFEC /* ListUserTableViewCellViewModel.swift */,
+				9F4E3FD62C53ABFD002DF8F7 /* StoriesViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -460,6 +469,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9F4E3FD92C53AC19002DF8F7 /* StoryCollectionViewCell.swift in Sources */,
 				9FDFCA042BBC59F2000E8FA1 /* TabBarViewController.swift in Sources */,
 				9F0C90992C0A10E000E5D3A3 /* PostLikesCollectionViewCell.swift in Sources */,
 				9F7206972C4F8C240036F8CB /* SettingsModels.swift in Sources */,
@@ -505,6 +515,7 @@
 				9F5C14CA2C32B90B00A49DF4 /* LikeNotificationTableViewCell.swift in Sources */,
 				9F7C51CB2C3BE9E3006D9B18 /* ProfileHeaderViewModel.swift in Sources */,
 				9FDFCA022BBC59DC000E8FA1 /* ProfileViewController.swift in Sources */,
+				9F4E3FD72C53ABFD002DF8F7 /* StoriesViewModel.swift in Sources */,
 				9FED15842C4166B100DBEFEC /* ListUserTableViewCellViewModel.swift in Sources */,
 				9F61A1CA2BFE4273006D0F08 /* PostCaptionCollectionViewCellViewModel.swift in Sources */,
 				9FDFC9E02BBC57EE000E8FA1 /* AppDelegate.swift in Sources */,
@@ -515,6 +526,7 @@
 				9F0C909D2C0A110F00E5D3A3 /* PostDateTimeCollectionViewCell.swift in Sources */,
 				9FDFC9E22BBC57EE000E8FA1 /* SceneDelegate.swift in Sources */,
 				9F45E7282C205F35001DF4EB /* PhotoCollectionViewCell.swift in Sources */,
+				9F4E3FD52C53ABDE002DF8F7 /* StoryHeaderView.swift in Sources */,
 				9FFAF6AD2BCD463200768243 /* SettingsViewController.swift in Sources */,
 				9F4E3FCC2C524E46002DF8F7 /* Comment.swift in Sources */,
 				9F0C90922C0A0ECD00E5D3A3 /* PosterCollectionViewCell.swift in Sources */,

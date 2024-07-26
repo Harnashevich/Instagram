@@ -173,11 +173,14 @@ extension HomeViewController: UICollectionViewDelegate {
         userName: String,
         completion: @escaping (Bool) -> Void
     ) {
+        guard let currentUsername = UserDefaults.standard.string(forKey: "username") else { return }
         StorageManager.shared.profilePictureURL(for: userName) { [weak self] profilePictureURL in
             guard let postURL = URL(string: model.postUrlString),
                   let profilePictureURL else {
                 return
             }
+            
+            let isLiked = model.likers.contains(currentUsername)
             
             let postData: [HomeFeedCellType] = [
                 .poster(
@@ -191,7 +194,7 @@ extension HomeViewController: UICollectionViewDelegate {
                         postUrl: postURL
                     )
                 ),
-                .actions(viewModel: PostActionsCollectionViewCellViewModel(isLiked: false)),
+                .actions(viewModel: PostActionsCollectionViewCellViewModel(isLiked: isLiked)),
                 .likeCount(viewModel: PostLikesCollectionViewCellViewModel(likers: [])),
                 .caption(viewModel: PostCaptionCollectionViewCellViewModel(
                     username: userName,
@@ -287,6 +290,29 @@ extension HomeViewController: UICollectionViewDataSource {
         }
     }
     
+    func collectionView(
+        _ collectionView: UICollectionView,
+        viewForSupplementaryElementOfKind kind: String,
+        at indexPath: IndexPath
+    ) -> UICollectionReusableView {
+        guard kind == UICollectionView.elementKindSectionHeader,
+              let headerView = collectionView.dequeueReusableSupplementaryView(
+                ofKind: kind,
+                withReuseIdentifier: StoryHeaderView.identifier,
+                for: indexPath
+              ) as? StoryHeaderView else {
+            return UICollectionReusableView()
+        }
+        let viewModel = StoriesViewModel(stories: [
+            Story(username: "jeffbezos", image: UIImage(named: "story1")),
+            Story(username: "simon12", image: UIImage(named: "story2")),
+            Story(username: "marqueesb", image: UIImage(named: "story3")),
+            Story(username: "kyliejenner", image: UIImage(named: "story4")),
+            Story(username: "drake", image: UIImage(named: "story5")),
+        ])
+        headerView.configure(with: viewModel)
+        return headerView
+    }
 }
 
 // MARK: - PosterCollectionViewCellDelegate
@@ -331,7 +357,17 @@ extension HomeViewController: PosterCollectionViewCellDelegate {
 extension HomeViewController: PostCollectionViewCellDelegate {
     
     func postCollectionViewCellDidLike(_ cell: PostCollectionViewCell, index: Int) {
-        print("did tap to like")
+        AnalyticsManager.shared.logFeedInteraction(.doubleTapToLike)
+        let tuple = allPosts[index]
+        DatabaseManager.shared.updateLikeState(
+            state: .like,
+            postID: tuple.post.id,
+            owner: tuple.owner) { success in
+                guard success else {
+                    return
+                }
+                print("Failed to like")
+            }
     }
 }
 
@@ -462,9 +498,23 @@ extension HomeViewController {
                 )
                 
                 // Section
-                
                 let section = NSCollectionLayoutSection(group: group)
+
+                if index == 0 {
+                    section.boundarySupplementaryItems = [
+                        NSCollectionLayoutBoundarySupplementaryItem(
+                            layoutSize: NSCollectionLayoutSize(
+                                widthDimension: .fractionalWidth(1),
+                                heightDimension: .fractionalWidth(0.3)
+                            ),
+                            elementKind: UICollectionView.elementKindSectionHeader,
+                            alignment: .top
+                        )
+                    ]
+                }
+
                 section.contentInsets = NSDirectionalEdgeInsets(top: 3, leading: 0, bottom: 10, trailing: 0)
+                
                 return section
             })
         )
@@ -497,6 +547,12 @@ extension HomeViewController {
         collectionView.register(
             PostDateTimeCollectionViewCell.self,
             forCellWithReuseIdentifier: PostDateTimeCollectionViewCell.identifer
+        )
+        
+        collectionView.register(
+            StoryHeaderView.self,
+            forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
+            withReuseIdentifier: StoryHeaderView.identifier
         )
         
         self.collectionView = collectionView

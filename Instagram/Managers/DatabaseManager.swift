@@ -549,7 +549,8 @@ final class DatabaseManager {
         completion: @escaping (Bool) -> Void
     ) {
         guard let currentUsername = UserDefaults.standard.string(forKey: "username") else { return }
-        let ref = database.collection("users")
+        let ref = database
+            .collection("users")
             .document(owner)
             .collection("posts")
             .document(postID)
