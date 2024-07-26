@@ -1,4 +1,5 @@
-# Instagram <img src="https://github.com/Harnashevich/TikTok/assets/84876109/963cb205-b0d6-4890-902a-dd711777fb7d" width="30" height="30">
+# Instagram <img src="![logo](https://github.com/user-attachments/assets/25ddf175-de26-49ea-ac0a-4cf5115bd64f)
+" width="30" height="30">
 
 Instagram application on iOS with the ability to upload, view, and comment on photos..<br />
 The project is based on the iOS Academy course.
