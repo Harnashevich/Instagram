@@ -5,11 +5,10 @@ The project is based on the iOS Academy course.
 
 ## Features
 
-• Watch a video<br />
-• Double tap to like on video<br />
+• View photos<br />
+• Double tap to like on photo<br />
 • Explore screen<br />
-• Video recording<br />
-• Saving video on Firebase<br />
+• Saving photo on Firebase from camera and gallery<br />
 • Notifications screen with swipe to delete<br />
 • Profile screen with settings<br />
 • Sign In/Sign Out<br />
@@ -22,5 +21,3 @@ The project is based on the iOS Academy course.
 • UICollectionViewCompositionalLayout<br />
 • AVFoundation<br />
 • URLSession<br />
-
-![imageTT](https://github.com/Harnashevich/TikTok/assets/84876109/4aa8c823-a92c-47ee-9313-015f655d34ed)
